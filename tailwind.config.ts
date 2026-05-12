@@ -50,6 +50,7 @@ const config: Config = {
         "marquee-reverse": "marqueeReverse 30s linear infinite",
         "spin-slow": "spin 8s linear infinite",
         "card-flip": "cardFlip 0.6s ease forwards",
+        "gradient-shift": "gradient-shift 8s ease infinite",
       },
       keyframes: {
         blobPulse: {
@@ -100,6 +101,11 @@ const config: Config = {
         cardFlip: {
           "0%": { transform: "rotateY(0deg)" },
           "100%": { transform: "rotateY(180deg)" },
+        },
+        "gradient-shift": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
         },
       },
       backgroundSize: {

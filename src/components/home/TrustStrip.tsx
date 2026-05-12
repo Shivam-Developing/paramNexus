@@ -1,42 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { LogoLoop } from "@/components/LogoLoop";
+import { Newspaper, Bot, Zap, PhoneCall } from "lucide-react";
 
 const trustItems = [
-  "📰 Backed by Param Advertising — 20+ Years of Jaipur Trust",
-  "🤖 AI-Powered Execution — 60% Lower Cost Than Traditional Agencies",
-  "⚡ Live in 15 Days — Guaranteed or We Work for Free",
-  "📞 Jaipur-Based Team — Real People, Real Calls",
+  { icon: <Newspaper className="w-5 h-5 text-indigo-400" />, text: "Backed by Param Advertising — 20+ Years of Jaipur Trust" },
+  { icon: <Bot className="w-5 h-5 text-cyan-400" />, text: "AI-Powered Execution — 60% Lower Cost Than Traditional Agencies" },
+  { icon: <Zap className="w-5 h-5 text-indigo-400" />, text: "Live in 15 Days — Guaranteed or We Work for Free" },
+  { icon: <PhoneCall className="w-5 h-5 text-cyan-400" />, text: "Jaipur-Based Team — Real People, Real Calls" },
 ];
 
 export default function TrustStrip() {
-  return (
-    <section className="bg-eerieBlack py-8 lg:py-10 overflow-hidden border-y border-white/5 relative">
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-1/2 h-full bg-neonIndigo/5 blur-[80px]" />
-      </div>
+  const items = trustItems.map((item, i) => (
+    <div key={i} className="flex items-center gap-4 px-6 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
+      {item.icon}
+      <span className="text-xs font-bold text-gray-300 uppercase tracking-widest whitespace-nowrap">
+        {item.text}
+      </span>
+      <span className="text-white/20 ml-4">✦</span>
+    </div>
+  ));
 
-      <div className="relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12">
-          {trustItems.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="flex items-center gap-4 group"
-            >
-              <span className="text-sm font-medium text-gray-400 group-hover:text-white transition-colors duration-300 text-center lg:text-left whitespace-nowrap">
-                {item}
-              </span>
-              {i < trustItems.length - 1 && (
-                <span className="hidden lg:block text-white/10">✦</span>
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </div>
+  return (
+    <section className="bg-obsidian py-8 overflow-hidden border-y border-white/5 relative z-20">
+      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-transparent to-indigo-500/5 pointer-events-none" />
+      <LogoLoop items={items} speed={35} gap={40} />
     </section>
   );
 }

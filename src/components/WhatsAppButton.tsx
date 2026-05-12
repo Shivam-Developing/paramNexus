@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MessageCircle } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function WhatsAppButton() {
@@ -12,28 +12,33 @@ export default function WhatsAppButton() {
       <AnimatePresence>
         {hovered && (
           <motion.div
-            initial={{ opacity: 0, x: 10, scale: 0.9 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 10, scale: 0.9 }}
-            className="premium-glass text-white text-sm font-medium px-4 py-2 rounded-full shadow-2xl whitespace-nowrap"
+            initial={{ opacity: 0, x: 10, scale: 0.9, filter: "blur(4px)" }}
+            animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, x: 10, scale: 0.9, filter: "blur(4px)" }}
+            className="bg-[#121216]/90 backdrop-blur-xl border border-white/10 text-white text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.5)] whitespace-nowrap"
           >
-            Chat with us now →
+            Start a Conversation
           </motion.div>
         )}
       </AnimatePresence>
       <a
-        href="https://wa.me/918744003727?text=Hi%20Param%20Nexus!%20I%20want%20to%20know%20more%20about%20your%20services."
+        href="https://wa.me/918744003727"
         target="_blank"
         rel="noopener noreferrer"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="relative w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-        aria-label="Chat on WhatsApp"
+        className="group relative w-16 h-16 bg-[#121216] border border-white/10 rounded-2xl flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_60px_rgba(99,102,241,0.2)] hover:border-indigo-500/50 hover:-translate-y-1 transition-all duration-500 overflow-hidden"
+        aria-label="Chat with us"
       >
-        {/* Sonar ping rings */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-sonar-ping opacity-40" />
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-sonar-ping opacity-30 [animation-delay:1s]" />
-        <MessageCircle className="w-7 h-7 text-white relative z-10" fill="white" />
+        {/* Internal glow */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        {/* Animated rings */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-12 h-12 rounded-full border border-indigo-500/20 animate-ping opacity-20" />
+        </div>
+
+        <MessageSquare className="w-7 h-7 text-indigo-400 group-hover:text-white transition-colors duration-500 relative z-10" />
       </a>
     </div>
   );
