@@ -126,13 +126,8 @@ export default function SocialMediaPage() {
             {plans.map((p, i) => (
               <MagicBento 
                 key={i} 
-                className={`flex flex-col relative !p-0 mt-6 ${p.popular ? "border-indigo-500/40 shadow-[0_0_40px_rgba(99,102,241,0.1)] lg:-translate-y-4" : ""}`}
+                className={`flex flex-col relative !p-0 ${p.popular ? "border-indigo-500/40 shadow-[0_0_40px_rgba(99,102,241,0.1)] lg:-translate-y-4" : ""}`}
               >
-                {p.popular && (
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-white shadow-md z-20 whitespace-nowrap">
-                    ✦ Recommended
-                  </div>
-                )}
                 <div className="p-8 lg:p-10 flex flex-col h-full">
                   <h3 className="font-display text-2xl font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">
                     {p.name}

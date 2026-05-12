@@ -170,7 +170,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Email</p>
-                  <a href="mailto:hello@paramnexus.in" className="text-lg text-white hover:text-indigo-400 transition-colors font-display font-bold tracking-tight">hello@paramnexus.in</a>
+                  <a href="mailto:nexusparam@gmail.com" className="text-lg text-white hover:text-indigo-400 transition-colors font-display font-bold tracking-tight">nexusparam@gmail.com</a>
                 </div>
               </div>
 
