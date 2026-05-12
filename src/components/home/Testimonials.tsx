@@ -2,6 +2,7 @@
 
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const placeholderTestimonials = [
   { name: "Rajesh K.", business: "Heritage Hotel, Amer", text: "Param Nexus transformed our online presence completely. We started getting direct bookings within the first month.", rating: 5 },
@@ -14,18 +15,23 @@ const placeholderTestimonials = [
 
 function TestimonialCard({ t }: { t: typeof placeholderTestimonials[0] }) {
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-black/5 min-w-[300px] max-w-[340px] shrink-0 mx-2">
-      <div className="flex gap-1 mb-3">
+    <div className="premium-glass p-8 rounded-[2rem] w-[320px] lg:w-[400px] shrink-0 mx-3 premium-glass-hover">
+      <div className="flex gap-1 mb-6">
         {Array.from({ length: t.rating }).map((_, i) => (
-          <span key={i} className="text-gold text-sm">★</span>
+          <span key={i} className="text-neonIndigo text-lg">★</span>
         ))}
       </div>
-      <p className="text-sm text-charcoal/70 leading-relaxed mb-4 italic">
+      <p className="text-gray-300 leading-relaxed mb-8 italic text-base">
         &ldquo;{t.text}&rdquo;
       </p>
-      <div>
-        <p className="text-sm font-semibold text-darkFooter">{t.name}</p>
-        <p className="text-xs text-charcoal/50">{t.business}</p>
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-neonIndigo to-cyberCyan flex items-center justify-center font-bold text-white shadow-lg">
+           {t.name[0]}
+        </div>
+        <div>
+          <p className="text-base font-bold text-white">{t.name}</p>
+          <p className="text-xs text-gray-500 uppercase tracking-widest">{t.business}</p>
+        </div>
       </div>
     </div>
   );
@@ -36,25 +42,28 @@ export default function Testimonials() {
   const row2 = placeholderTestimonials.slice(3);
 
   return (
-    <SectionWrapper className="bg-offWhite py-20 lg:py-28 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-darkFooter text-center">
-          Real Businesses. <span className="text-teal">Real Results.</span>
+    <SectionWrapper className="bg-obsidian py-24 lg:py-32 overflow-hidden relative">
+      {/* Ambient bleed */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-neonIndigo/10 blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 relative z-10">
+        <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white text-center">
+          Real Businesses. <br /><span className="text-gradient-cyan">Real Results.</span>
         </h2>
       </div>
 
-      {/* Marquee Row 1 — Left */}
-      <div className="mb-4 overflow-hidden">
-        <div className="flex animate-marquee w-max">
+      {/* Row 1 */}
+      <div className="mb-8 overflow-hidden logo-loop-fade" style={{'--fade-color': '#050507'} as React.CSSProperties}>
+        <div className="flex animate-marquee w-max py-4">
           {[...row1, ...row1, ...row1, ...row1].map((t, i) => (
             <TestimonialCard key={`r1-${i}`} t={t} />
           ))}
         </div>
       </div>
 
-      {/* Marquee Row 2 — Right */}
-      <div className="overflow-hidden">
-        <div className="flex animate-marquee-reverse w-max">
+      {/* Row 2 */}
+      <div className="overflow-hidden logo-loop-fade" style={{'--fade-color': '#050507'} as React.CSSProperties}>
+        <div className="flex animate-marquee-reverse w-max py-4">
           {[...row2, ...row2, ...row2, ...row2].map((t, i) => (
             <TestimonialCard key={`r2-${i}`} t={t} />
           ))}
@@ -62,21 +71,23 @@ export default function Testimonials() {
       </div>
 
       {/* Founding Client CTA */}
-      <div className="max-w-2xl mx-auto mt-14 px-4">
-        <div className="border-2 border-gold/40 rounded-2xl p-8 bg-gold/5 text-center">
-          <h3 className="font-display text-xl font-bold text-darkFooter mb-3">
-            🌟 Become One of Our First 10 Founding Clients
+      <div className="max-w-3xl mx-auto mt-24 px-4 relative z-10">
+        <div className="premium-glass p-10 lg:p-14 text-center rounded-[3rem] relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-br from-neonIndigo/5 to-cyberCyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          
+          <h3 className="font-display text-2xl lg:text-3xl font-bold text-white mb-6">
+            🌟 Become One of Our <br />First 10 Founding Clients
           </h3>
-          <p className="text-sm text-charcoal/60 leading-relaxed mb-2">
+          <p className="text-gray-400 leading-relaxed mb-4 max-w-lg mx-auto">
             Get priority attention, founding-member pricing, and a permanent
             &ldquo;Founding Client&rdquo; badge on our website.
           </p>
-          <p className="text-sm text-gold font-semibold mb-5">
+          <p className="text-neonIndigo font-bold mb-10 text-sm uppercase tracking-widest">
             First 10 clients only — 3 slots already claimed.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-6 py-3 text-sm font-semibold text-white bg-gold hover:bg-gold-dark rounded-full transition-colors"
+            className="px-10 py-4 text-sm font-bold text-white bg-gradient-to-r from-neonIndigo to-purple-600 rounded-full shadow-2xl hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] transition-all duration-300"
           >
             Apply as a Founding Client →
           </Link>

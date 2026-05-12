@@ -9,6 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        obsidian: "#050507",
+        eerieBlack: "#0B0B0E",
+        neonIndigo: "#6366F1",
+        cyberCyan: "#06B6D4",
         offWhite: "#f7f6f2",
         warmGray: "#edeae5",
         deepTeal: "#0f3638",

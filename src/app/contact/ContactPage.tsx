@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, CheckCircle, Loader2, Calendar } from "lucide-react";
+import BlurText from "@/components/animations/BlurText";
 
 const businessTypes = ["Clinic / Hospital", "Coaching Institute", "Real Estate", "Restaurant / Café", "Hotel / Heritage Property", "Jewellery", "Retail / Boutique", "Other"];
 const serviceOptions = ["Website Development", "Social Media Management", "KliqueNexus — Video Content", "Digital Identity Bundle", "Newspaper Advertising", "Not Sure — Tell Me What I Need"];
@@ -38,151 +39,171 @@ export default function ContactPage() {
   };
 
   return (
-    <>
-      <section className="bg-offWhite pt-28 pb-20 lg:pt-32 lg:pb-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-14">
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-darkFooter leading-[1.08]">
-              Your Digital Transformation
-              <br /><span className="text-teal">Starts With One Conversation.</span>
-            </h1>
-            <p className="mt-6 text-charcoal/60 text-lg max-w-xl mx-auto">
-              No sales pressure. No jargon. Just an honest 20 minutes about
-              what your business needs online. It&apos;s free. We actually pick up the phone.
-            </p>
-          </motion.div>
+    <div className="bg-obsidian min-h-screen pt-32 pb-24 overflow-hidden relative">
+      {/* Ambient backgrounds */}
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.1),transparent_50%)] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-cyberCyan/5 blur-[120px] pointer-events-none" />
 
-          <div className="grid lg:grid-cols-[3fr_2fr] gap-12">
-            {/* Left — Form */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-              {formState === "success" ? (
-                <div className="bg-white rounded-2xl p-12 shadow-sm border border-black/5 text-center">
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring" }}>
-                    <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                  </motion.div>
-                  <h3 className="font-display text-2xl font-bold text-darkFooter mb-2">Received!</h3>
-                  <p className="text-charcoal/60">We&apos;ll call you within 2 hours.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 shadow-sm border border-black/5 space-y-5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16 lg:mb-24">
+          <BlurText 
+            text="Your Digital Transformation Starts With One Conversation."
+            className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-8"
+            animateBy="words"
+            direction="top"
+          />
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }} className="text-gray-400 text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed">
+            No sales pressure. No jargon. Just an honest conversation about
+            what your business needs online. It&apos;s free. We actually pick up the phone.
+          </motion.p>
+        </div>
+
+        <div className="grid lg:grid-cols-[3fr_2fr] gap-12 lg:gap-20">
+          {/* Left — Form */}
+          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
+            {formState === "success" ? (
+              <div className="premium-glass p-16 text-center rounded-3xl">
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 12 }}>
+                  <CheckCircle className="w-20 h-20 text-neonIndigo mx-auto mb-6" />
+                </motion.div>
+                <h3 className="font-display text-3xl font-bold text-white mb-4">Received!</h3>
+                <p className="text-gray-400 text-lg">Our team will call you within 2 hours.</p>
+                <button onClick={() => setFormState("idle")} className="mt-10 text-neonIndigo font-bold hover:underline">Send another inquiry</button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="premium-glass p-8 lg:p-12 rounded-[2.5rem] space-y-8">
+                <div className="grid sm:grid-cols-2 gap-8">
                   {/* Full Name */}
                   <div>
-                    <label className="text-sm font-semibold text-darkFooter mb-1.5 block">Full Name *</label>
-                    <input type="text" value={form.fullName} onChange={e => setForm(p => ({ ...p, fullName: e.target.value }))} className={`w-full px-4 py-3 rounded-xl border ${errors.fullName ? "border-red-400" : "border-black/10"} bg-offWhite/50 text-sm focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-colors`} placeholder="Your full name" />
-                    {errors.fullName && <p className="text-xs text-red-500 mt-1">{errors.fullName}</p>}
+                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 block ml-1">Full Name *</label>
+                    <input type="text" value={form.fullName} onChange={e => setForm(p => ({ ...p, fullName: e.target.value }))} className={`w-full px-5 py-4 rounded-2xl bg-white/5 border ${errors.fullName ? "border-red-500" : "border-white/10"} text-white focus:outline-none focus:ring-2 focus:ring-neonIndigo/20 focus:border-neonIndigo transition-all`} placeholder="Your full name" />
+                    {errors.fullName && <p className="text-[10px] text-red-500 mt-2 font-bold ml-1 uppercase tracking-wider">{errors.fullName}</p>}
                   </div>
                   {/* Business Name */}
                   <div>
-                    <label className="text-sm font-semibold text-darkFooter mb-1.5 block">Business Name *</label>
-                    <input type="text" value={form.businessName} onChange={e => setForm(p => ({ ...p, businessName: e.target.value }))} className={`w-full px-4 py-3 rounded-xl border ${errors.businessName ? "border-red-400" : "border-black/10"} bg-offWhite/50 text-sm focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-colors`} placeholder="Your business name" />
-                    {errors.businessName && <p className="text-xs text-red-500 mt-1">{errors.businessName}</p>}
+                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 block ml-1">Business Name *</label>
+                    <input type="text" value={form.businessName} onChange={e => setForm(p => ({ ...p, businessName: e.target.value }))} className={`w-full px-5 py-4 rounded-2xl bg-white/5 border ${errors.businessName ? "border-red-500" : "border-white/10"} text-white focus:outline-none focus:ring-2 focus:ring-neonIndigo/20 focus:border-neonIndigo transition-all`} placeholder="Your business name" />
+                    {errors.businessName && <p className="text-[10px] text-red-500 mt-2 font-bold ml-1 uppercase tracking-wider">{errors.businessName}</p>}
                   </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-8">
                   {/* Business Type */}
                   <div>
-                    <label className="text-sm font-semibold text-darkFooter mb-1.5 block">Business Type *</label>
-                    <select value={form.businessType} onChange={e => setForm(p => ({ ...p, businessType: e.target.value }))} className={`w-full px-4 py-3 rounded-xl border ${errors.businessType ? "border-red-400" : "border-black/10"} bg-offWhite/50 text-sm focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-colors`}>
-                      <option value="">Select your industry</option>
-                      {businessTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 block ml-1">Business Type *</label>
+                    <select value={form.businessType} onChange={e => setForm(p => ({ ...p, businessType: e.target.value }))} className={`w-full px-5 py-4 rounded-2xl bg-white/5 border ${errors.businessType ? "border-red-500" : "border-white/10"} text-white focus:outline-none focus:ring-2 focus:ring-neonIndigo/20 focus:border-neonIndigo transition-all appearance-none cursor-pointer`}>
+                      <option value="" className="bg-obsidian">Select your industry</option>
+                      {businessTypes.map(t => <option key={t} value={t} className="bg-obsidian">{t}</option>)}
                     </select>
-                    {errors.businessType && <p className="text-xs text-red-500 mt-1">{errors.businessType}</p>}
+                    {errors.businessType && <p className="text-[10px] text-red-500 mt-2 font-bold ml-1 uppercase tracking-wider">{errors.businessType}</p>}
                   </div>
                   {/* Phone */}
                   <div>
-                    <label className="text-sm font-semibold text-darkFooter mb-1.5 block">Phone Number *</label>
+                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 block ml-1">Phone Number *</label>
                     <div className="flex">
-                      <span className="px-4 py-3 bg-warmGray rounded-l-xl border border-r-0 border-black/10 text-sm text-charcoal/50">+91</span>
-                      <input type="tel" value={form.phone} onChange={e => setForm(p => ({ ...p, phone: e.target.value.replace(/\D/g, "").slice(0, 10) }))} className={`flex-1 px-4 py-3 rounded-r-xl border ${errors.phone ? "border-red-400" : "border-black/10"} bg-offWhite/50 text-sm focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-colors`} placeholder="XXXXXXXXXX" />
+                      <span className="px-5 py-4 bg-white/5 rounded-l-2xl border border-r-0 border-white/10 text-sm text-gray-500 font-bold">+91</span>
+                      <input type="tel" value={form.phone} onChange={e => setForm(p => ({ ...p, phone: e.target.value.replace(/\D/g, "").slice(0, 10) }))} className={`flex-1 px-5 py-4 rounded-r-2xl bg-white/5 border ${errors.phone ? "border-red-500" : "border-white/10"} text-white focus:outline-none focus:ring-2 focus:ring-neonIndigo/20 focus:border-neonIndigo transition-all`} placeholder="XXXXXXXXXX" />
                     </div>
-                    {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone}</p>}
+                    {errors.phone && <p className="text-[10px] text-red-500 mt-2 font-bold ml-1 uppercase tracking-wider">{errors.phone}</p>}
                   </div>
-                  {/* Services */}
-                  <div>
-                    <label className="text-sm font-semibold text-darkFooter mb-2 block">What are you looking for? *</label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {serviceOptions.map(s => (
-                        <label key={s} className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg border cursor-pointer transition-all text-sm ${form.services.includes(s) ? "bg-teal/10 border-teal text-teal font-medium" : "bg-offWhite/50 border-black/10 text-charcoal/60 hover:bg-warmGray"}`}>
-                          <input type="checkbox" checked={form.services.includes(s)} onChange={() => toggleService(s)} className="sr-only" />
-                          <div className={`w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 ${form.services.includes(s) ? "bg-teal border-teal" : "border-black/20"}`}>
-                            {form.services.includes(s) && <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>}
-                          </div>
-                          {s}
-                        </label>
-                      ))}
-                    </div>
-                    {errors.services && <p className="text-xs text-red-500 mt-1">{errors.services}</p>}
-                  </div>
-                  {/* Message */}
-                  <div>
-                    <label className="text-sm font-semibold text-darkFooter mb-1.5 block">Message (Optional)</label>
-                    <textarea value={form.message} onChange={e => setForm(p => ({ ...p, message: e.target.value }))} rows={3} className="w-full px-4 py-3 rounded-xl border border-black/10 bg-offWhite/50 text-sm focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal transition-colors resize-none" placeholder="Tell us about your business or any specific requirements..." />
-                  </div>
-                  {/* Submit */}
-                  <button type="submit" disabled={formState === "loading"} className="w-full py-4 bg-teal text-white font-bold rounded-xl hover:bg-teal-dark transition-colors flex items-center justify-center gap-2 text-sm disabled:opacity-70 mobile-full-width-cta">
-                    {formState === "loading" ? <><Loader2 className="w-5 h-5 animate-spin" /> Submitting...</> : "🚀 Submit — Get My Free Audit Within 24 Hours"}
-                  </button>
-                </form>
-              )}
-            </motion.div>
+                </div>
 
-            {/* Right — Contact Details */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="space-y-6">
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-black/5 space-y-5">
-                <div className="flex items-start gap-3">
-                  <Phone className="w-5 h-5 text-teal mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-darkFooter">Call / WhatsApp</p>
-                    <a href="tel:+918744003727" className="text-sm text-charcoal/60 hover:text-teal transition-colors block">+91 87440 03727 (Shivam)</a>
-                    <a href="tel:+918619620062" className="text-sm text-charcoal/60 hover:text-teal transition-colors block">+91 86196 20062 (Ayush)</a>
-                    <p className="text-xs text-charcoal/40 mt-1">(We answer both — Mon to Sat)</p>
+                {/* Services */}
+                <div>
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 block ml-1">What are you looking for? *</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {serviceOptions.map(s => (
+                      <label key={s} className={`flex items-center gap-4 px-4 py-4 rounded-2xl border cursor-pointer transition-all ${form.services.includes(s) ? "bg-neonIndigo/10 border-neonIndigo text-white" : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10"}`}>
+                        <input type="checkbox" checked={form.services.includes(s)} onChange={() => toggleService(s)} className="sr-only" />
+                        <div className={`w-5 h-5 rounded-lg border-2 flex items-center justify-center shrink-0 transition-all ${form.services.includes(s) ? "bg-neonIndigo border-neonIndigo" : "border-white/20"}`}>
+                          {form.services.includes(s) && <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>}
+                        </div>
+                        <span className="text-sm font-medium">{s}</span>
+                      </label>
+                    ))}
                   </div>
+                  {errors.services && <p className="text-[10px] text-red-500 mt-2 font-bold ml-1 uppercase tracking-wider">{errors.services}</p>}
                 </div>
-                <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-teal mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-darkFooter">Email</p>
-                    <a href="mailto:hello@paramnexus.in" className="text-sm text-charcoal/60 hover:text-teal transition-colors">hello@paramnexus.in</a>
-                  </div>
+
+                {/* Message */}
+                <div>
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 block ml-1">Message (Optional)</label>
+                  <textarea value={form.message} onChange={e => setForm(p => ({ ...p, message: e.target.value }))} rows={4} className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-neonIndigo/20 focus:border-neonIndigo transition-all resize-none" placeholder="Tell us about your business goals..." />
                 </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-teal mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-darkFooter">Office</p>
-                    <p className="text-sm text-charcoal/60">Jaipur, Rajasthan 302001</p>
-                  </div>
+
+                {/* Submit */}
+                <button type="submit" disabled={formState === "loading"} className="w-full py-5 bg-gradient-to-r from-neonIndigo to-purple-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-[0_0_40px_rgba(99,102,241,0.5)] transition-all flex items-center justify-center gap-3 disabled:opacity-70">
+                  {formState === "loading" ? <><Loader2 className="w-6 h-6 animate-spin" /> Processing...</> : "🚀 Submit — Get My Free Audit"}
+                </button>
+              </form>
+            )}
+          </motion.div>
+
+          {/* Right — Contact Details */}
+          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.7 }} className="space-y-8">
+            <div className="premium-glass p-8 lg:p-10 rounded-[2.5rem] space-y-10">
+              <div className="flex items-start gap-5 group">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-neonIndigo/20 transition-colors">
+                  <Phone className="w-5 h-5 text-neonIndigo" />
                 </div>
-                <div className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-teal mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-darkFooter">Working Hours</p>
-                    <p className="text-sm text-charcoal/60">Monday – Saturday</p>
-                    <p className="text-sm text-charcoal/60">10:00 AM – 7:00 PM</p>
-                  </div>
+                <div>
+                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Call / WhatsApp</p>
+                  <a href="tel:+918744003727" className="text-lg text-white hover:text-neonIndigo transition-colors block font-display font-bold">+91 87440 03727</a>
+                  <a href="tel:+918619620062" className="text-lg text-white hover:text-neonIndigo transition-colors block font-display font-bold mt-1">+91 86196 20062</a>
                 </div>
               </div>
 
-              <a href="#" className="flex items-center justify-center gap-2 px-5 py-3 bg-teal/10 text-teal font-semibold rounded-xl hover:bg-teal/20 transition-colors text-sm">
-                <Calendar className="w-4 h-4" /> Book a Free 30-Minute Strategy Call
-              </a>
-
-              <div className="bg-gold/5 border border-gold/20 rounded-2xl p-5">
-                <p className="text-sm text-charcoal/70 leading-relaxed">
-                  We respond to every inquiry within <strong>2 business hours</strong>.
-                  A real person from our Jaipur team will call you back.
-                  <br /><strong>No bots. No offshore teams. Just us.</strong>
-                </p>
-              </div>
-
-              {/* Map Placeholder */}
-              <div className="rounded-2xl overflow-hidden h-48 bg-warmGray border border-black/5 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-8 h-8 text-teal/30 mx-auto mb-2" />
-                  <p className="text-sm text-charcoal/40">Jaipur, Rajasthan</p>
+              <div className="flex items-start gap-5 group">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-neonIndigo/20 transition-colors">
+                  <Mail className="w-5 h-5 text-neonIndigo" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Email</p>
+                  <a href="mailto:hello@paramnexus.in" className="text-lg text-white hover:text-neonIndigo transition-colors font-display font-bold">hello@paramnexus.in</a>
                 </div>
               </div>
-            </motion.div>
-          </div>
+
+              <div className="flex items-start gap-5 group">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-neonIndigo/20 transition-colors">
+                  <MapPin className="w-5 h-5 text-neonIndigo" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Main Office</p>
+                  <p className="text-gray-300 leading-relaxed font-medium">
+                    Param Cloth Store, 22, Arjun Nagar Phatak Rd, <br />
+                    Industrial Area, Kartarpura Phatak, <br />
+                    Bais Godam, Jaipur, Rajasthan 302006
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-5 group">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-neonIndigo/20 transition-colors">
+                  <Clock className="w-5 h-5 text-neonIndigo" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Working Hours</p>
+                  <p className="text-gray-300 font-medium">Monday – Saturday</p>
+                  <p className="text-gray-300 font-medium">10:00 AM – 7:00 PM</p>
+                </div>
+              </div>
+            </div>
+
+            <a href="https://wa.me/918744003727" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 px-8 py-5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-2xl transition-all shadow-xl group">
+              <Calendar className="w-5 h-5 text-neonIndigo group-hover:scale-110 transition-transform" /> 
+              Book a Free Strategy Call
+            </a>
+
+            <div className="bg-neonIndigo/5 border border-neonIndigo/10 rounded-[2rem] p-8 text-center">
+              <p className="text-gray-400 text-sm leading-relaxed italic">
+                &ldquo;We respond to every inquiry within <strong>2 business hours</strong>.
+                A real person from our Jaipur team will call you back.
+                No bots. No offshore teams. Just us.&rdquo;
+              </p>
+            </div>
+          </motion.div>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 }

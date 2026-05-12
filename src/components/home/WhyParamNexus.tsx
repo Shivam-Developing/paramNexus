@@ -28,22 +28,23 @@ const features = [
 
 export default function WhyParamNexus() {
   return (
-    <SectionWrapper className="bg-warmGray/50 py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-darkFooter text-center mb-14">
-          Not Just Cheaper. <span className="text-teal">Built Different.</span>
+    <SectionWrapper className="bg-eerieBlack py-24 lg:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white text-center mb-20">
+          Not Just Cheaper. <br /><span className="text-gradient-cyan">Built Different.</span>
         </h2>
+        
         <StaggeredGrid className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {features.map((f) => (
             <div
               key={f.title}
-              className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              className="premium-glass p-8 group premium-glass-hover"
             >
-              <span className="text-3xl block mb-4">{f.emoji}</span>
-              <h3 className="font-display text-sm font-bold text-darkFooter uppercase tracking-wide mb-3">
+              <span className="text-4xl block mb-6 transition-transform duration-500 group-hover:scale-125 group-hover:rotate-6">{f.emoji}</span>
+              <h3 className="font-display text-xs font-bold text-white uppercase tracking-widest mb-4 group-hover:text-cyberCyan transition-colors">
                 {f.title}
               </h3>
-              <p className="text-sm text-charcoal/60 leading-relaxed">{f.body}</p>
+              <p className="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">{f.body}</p>
             </div>
           ))}
         </StaggeredGrid>

@@ -45,24 +45,24 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        initial={{ y: -64, opacity: 0 }}
+        initial={{ y: -72, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 h-[var(--navbar-height)] transition-all duration-500",
           scrolled
-            ? "bg-[rgba(247,246,242,0.88)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.06)] shadow-sm"
+            ? "premium-glass"
             : "bg-transparent"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 z-10">
+          <Link href="/" className="flex items-center gap-2 z-10 group">
             <div className="flex flex-col">
-              <span className="font-display text-xl font-bold tracking-tight text-deepTeal">
+              <span className="font-display text-xl font-bold tracking-tight text-white group-hover:text-neonIndigo transition-colors duration-300">
                 PARAM NEXUS
               </span>
-              <span className="text-[9px] tracking-[0.2em] text-teal/60 uppercase -mt-1">
+              <span className="text-[9px] tracking-[0.2em] text-gray-400 uppercase -mt-1 group-hover:text-cyberCyan transition-colors duration-300">
                 AI-Powered Digital Growth
               </span>
             </div>
@@ -78,11 +78,11 @@ export default function Navbar() {
                   onMouseEnter={() => setServicesOpen(true)}
                   onMouseLeave={() => setServicesOpen(false)}
                 >
-                  <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-charcoal/80 hover:text-teal transition-colors rounded-lg hover:bg-teal/5">
+                  <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors rounded-full hover:bg-white/5">
                     {link.label}
                     <ChevronDown
                       className={cn(
-                        "w-3.5 h-3.5 transition-transform duration-200",
+                        "w-3.5 h-3.5 transition-transform duration-300",
                         servicesOpen && "rotate-180"
                       )}
                     />
@@ -90,17 +90,17 @@ export default function Navbar() {
                   <AnimatePresence>
                     {servicesOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-1 w-64 bg-white/95 backdrop-blur-xl rounded-xl shadow-xl border border-black/5 overflow-hidden"
+                        className="absolute top-full left-0 mt-2 w-72 premium-glass p-2 rounded-2xl shadow-2xl overflow-hidden"
                       >
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="block px-4 py-3 text-sm text-charcoal hover:bg-teal/5 hover:text-teal transition-colors"
+                            className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200"
                           >
                             {child.label}
                           </Link>
@@ -113,7 +113,7 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="px-3 py-2 text-sm font-medium text-charcoal/80 hover:text-teal transition-colors rounded-lg hover:bg-teal/5"
+                  className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
                 >
                   {link.label}
                 </Link>
@@ -122,26 +122,25 @@ export default function Navbar() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/contact"
-              className="relative overflow-hidden px-5 py-2.5 text-sm font-semibold text-white bg-teal rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-teal/20 hover:-translate-y-0.5 group"
+              className="px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-neonIndigo to-purple-600 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] hover:-translate-y-0.5 transition-all duration-300"
             >
-              <span className="relative z-10">Get Free Audit →</span>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 gold-shimmer" />
+              Get Free Audit →
             </Link>
           </div>
 
           {/* Mobile Hamburger */}
           <button
-            className="lg:hidden z-50 p-2 rounded-lg hover:bg-teal/5 transition-colors"
+            className="lg:hidden z-50 p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
             {mobileOpen ? (
               <X className="w-6 h-6 text-white" />
             ) : (
-              <Menu className="w-6 h-6 text-charcoal" />
+              <Menu className="w-6 h-6 text-white" />
             )}
           </button>
         </div>
@@ -151,23 +150,29 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-            className="fixed inset-0 z-40 bg-deepTeal flex flex-col justify-center items-center"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="fixed inset-0 z-40 bg-obsidian flex flex-col justify-center items-center p-6"
           >
-            <nav className="flex flex-col items-center gap-2">
+            <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+               <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neonIndigo blur-[120px]" />
+               <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyberCyan blur-[120px]" />
+            </div>
+
+            <nav className="flex flex-col items-center gap-4 relative z-10">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.label}
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.06, duration: 0.3 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="w-full text-center"
                 >
                   {link.children ? (
-                    <div className="flex flex-col items-center gap-1">
-                      <span className="text-2xl font-display font-bold text-white/50 py-2">
+                    <div className="flex flex-col items-center gap-2">
+                      <span className="text-3xl font-display font-bold text-gray-600 mb-2">
                         {link.label}
                       </span>
                       {link.children.map((child) => (
@@ -175,7 +180,7 @@ export default function Navbar() {
                           key={child.href}
                           href={child.href}
                           onClick={() => setMobileOpen(false)}
-                          className="text-lg text-white/70 hover:text-gold transition-colors py-1"
+                          className="text-xl text-gray-300 hover:text-white transition-colors"
                         >
                           {child.label}
                         </Link>
@@ -185,7 +190,7 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className="text-2xl font-display font-bold text-white hover:text-gold transition-colors py-2"
+                      className="text-4xl font-display font-bold text-white hover:text-neonIndigo transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -196,12 +201,12 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="mt-8"
+                className="mt-12"
               >
                 <Link
                   href="/contact"
                   onClick={() => setMobileOpen(false)}
-                  className="px-8 py-3 text-lg font-bold text-deepTeal bg-gold rounded-full hover:bg-gold-light transition-colors"
+                  className="px-10 py-4 text-lg font-bold text-white bg-gradient-to-r from-neonIndigo to-purple-600 rounded-full shadow-2xl"
                 >
                   Get Free Audit →
                 </Link>

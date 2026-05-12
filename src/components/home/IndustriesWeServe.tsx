@@ -24,51 +24,47 @@ export default function IndustriesWeServe() {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <SectionWrapper className="bg-offWhite py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-darkFooter text-center mb-14">
+    <SectionWrapper className="bg-obsidian py-24 lg:py-32 relative overflow-hidden">
+      {/* Background radial */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(99,102,241,0.05),transparent_70%)] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white text-center mb-20 leading-tight">
           If You Run a Business in Jaipur,
           <br />
-          <span className="text-teal">We Work For You.</span>
+          <span className="text-gradient-cyan">We Work For You.</span>
         </h2>
 
-        {/* Desktop Grid */}
-        <div ref={ref} className="hidden md:grid grid-cols-3 lg:grid-cols-4 gap-3">
+        {/* Grid */}
+        <div ref={ref} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {industries.map((ind, i) => (
             <motion.div
               key={ind.name}
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.04, duration: 0.4 }}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white border border-black/5 hover:bg-teal hover:text-white hover:border-teal transition-all duration-300 cursor-default group"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: i * 0.05, duration: 0.5 }}
+              className="premium-glass px-6 py-4 flex items-center gap-4 hover:border-cyberCyan/50 group transition-all duration-300 cursor-default overflow-hidden"
             >
-              <span className="text-xl">{ind.emoji}</span>
-              <span className="text-sm font-medium group-hover:text-white text-charcoal/80">
+              <div className="absolute inset-0 bg-cyberCyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="text-2xl relative z-10 transition-transform duration-500 group-hover:scale-125 group-hover:rotate-6">{ind.emoji}</span>
+              <span className="text-sm font-bold text-gray-300 relative z-10 group-hover:text-white transition-colors">
                 {ind.name}
               </span>
             </motion.div>
           ))}
         </div>
 
-        {/* Mobile Marquee */}
-        <div className="md:hidden overflow-hidden">
-          <div className="flex animate-marquee gap-3 w-max">
-            {[...industries, ...industries].map((ind, i) => (
-              <div
-                key={`${ind.name}-${i}`}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-black/5 whitespace-nowrap shrink-0"
-              >
-                <span>{ind.emoji}</span>
-                <span className="text-sm font-medium text-charcoal/80">{ind.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <p className="text-center mt-10 text-teal italic text-lg max-w-xl mx-auto">
-          &ldquo;If your customers are in Jaipur, they&apos;re already searching
-          online. We make sure they find you first.&rdquo;
-        </p>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-20"
+        >
+          <p className="text-neonIndigo italic text-xl lg:text-2xl max-w-2xl mx-auto font-display">
+            &ldquo;If your customers are in Jaipur, they&apos;re already searching
+            online. We make sure they find you first.&rdquo;
+          </p>
+        </motion.div>
       </div>
     </SectionWrapper>
   );

@@ -3,6 +3,7 @@
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import Link from "next/link";
 import { Check } from "lucide-react";
+import MagicRings from "@/components/animations/MagicRings";
 
 const bundleItems = [
   "5-Page Professional Website",
@@ -17,72 +18,85 @@ export default function StarterBundle() {
   return (
     <SectionWrapper
       id="starter-bundle"
-      className="relative py-20 lg:py-28 overflow-hidden"
+      className="relative py-24 lg:py-32 overflow-hidden bg-[#08080A]"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#01696f] to-[#0c4e54]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(200,169,97,0.08),transparent_60%)]" />
+      {/* Ambient background rings */}
+      <MagicRings color="#6366F1" ringCount={3} opacity={0.15} blur={10} followMouse={false} />
+      
+      {/* Background radial gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(99,102,241,0.08),transparent_60%)] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left — Copy */}
           <div>
-            <span className="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-gold bg-gold/10 rounded-full mb-6">
-              🔥 MOST POPULAR — LIMITED SLOTS PER MONTH
+            <span className="inline-block px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-neonIndigo bg-neonIndigo/10 border border-neonIndigo/20 rounded-full mb-8">
+              🔥 MOST POPULAR — LIMITED SLOTS
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-8">
               Go Completely Digital in 15 Days.
               <br />
-              <span className="text-gold/90">
-                For Less Than the Cost of a Newspaper Ad.
+              <span className="text-gradient-cyan">
+                Less Than a Newspaper Ad.
               </span>
             </h2>
-            <p className="mt-6 text-white/70 text-lg leading-relaxed">
+            <p className="text-gray-400 text-lg leading-relaxed max-w-lg mb-8">
               Everything a Jaipur business needs to own its digital identity —
               designed, built, and launched in one seamless package.
             </p>
-            <p className="mt-4 text-gold font-semibold">
-              ★ 3 slots already claimed this month. We cap monthly onboarding
-              to ensure every client gets personal attention.
-            </p>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-4">
+               <span className="text-2xl">⚡</span>
+               <p className="text-sm text-gray-300 font-medium">
+                  3 slots already claimed this month. We cap monthly onboarding
+                  to ensure every client gets personal attention.
+               </p>
+            </div>
           </div>
 
-          {/* Right — Bundle Card with glow border */}
-          <div className="flex justify-center">
-            <div className="relative p-[2px] rounded-2xl w-full max-w-md">
-              {/* Animated glow border */}
-              <div className="absolute inset-0 rounded-2xl border-glow bg-400% opacity-60" />
-              <div className="relative bg-white rounded-2xl p-8">
-                <div className="text-center mb-6">
-                  <h3 className="font-display text-lg font-bold text-deepTeal tracking-wide">
+          {/* Right — Bundle Card */}
+          <div className="flex justify-center relative">
+            {/* Glow behind card */}
+            <div className="absolute inset-0 bg-neonIndigo/20 blur-[80px] rounded-full scale-75" />
+            
+            <div className="relative w-full max-w-md premium-glass p-1 rounded-3xl overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-neonIndigo/20 via-transparent to-cyberCyan/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              
+              <div className="relative bg-[#121216]/80 p-8 lg:p-10 rounded-[calc(1.5rem-1px)]">
+                <div className="text-center mb-8">
+                  <h3 className="font-display text-sm font-bold text-white uppercase tracking-widest">
                     ✦ DIGITAL IDENTITY STARTER BUNDLE ✦
                   </h3>
                 </div>
-                <div className="space-y-3 mb-6">
+                
+                <div className="space-y-4 mb-10">
                   {bundleItems.map((item) => (
-                    <div key={item} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-teal shrink-0 mt-0.5" />
-                      <span className="text-sm text-charcoal">{item}</span>
+                    <div key={item} className="flex items-start gap-4 group/item">
+                      <div className="w-5 h-5 rounded-full bg-neonIndigo/10 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-neonIndigo/30 transition-colors">
+                        <Check className="w-3 h-3 text-neonIndigo" />
+                      </div>
+                      <span className="text-sm text-gray-300 group-hover/item:text-white transition-colors">{item}</span>
                     </div>
                   ))}
                 </div>
-                <div className="border-t border-black/10 pt-5 text-center">
-                  <p className="text-sm text-charcoal/50 line-through">
+                
+                <div className="border-t border-white/5 pt-8 text-center mb-8">
+                  <p className="text-xs text-gray-500 line-through mb-1">
                     Market Value: ₹65,000+
                   </p>
-                  <p className="text-3xl font-display font-bold text-teal mt-1">
-                    🎯 ₹19,999 Only
+                  <p className="text-4xl font-display font-bold text-white">
+                    ₹19,999 <span className="text-sm text-gray-400 font-normal">Only</span>
                   </p>
                 </div>
+                
                 <Link
                   href="/contact"
-                  className="mt-6 w-full inline-flex items-center justify-center px-6 py-3.5 text-sm font-bold text-white bg-teal rounded-xl hover:bg-teal-dark transition-colors mobile-full-width-cta"
+                  className="w-full inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-gradient-to-r from-neonIndigo to-purple-600 rounded-2xl shadow-xl hover:shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:-translate-y-1 transition-all duration-300"
                 >
-                  Claim My Bundle — Limited Slots
+                  Claim My Bundle →
                 </Link>
-                <p className="mt-4 text-xs text-charcoal/50 text-center">
-                  ⏱ Delivered in 15 days · No hidden costs · Jaipur team
-                  handles everything
+                
+                <p className="mt-6 text-[10px] text-gray-500 text-center uppercase tracking-widest font-bold">
+                  ⏱ 15 Days · No Hidden Costs · Jaipur Team
                 </p>
               </div>
             </div>

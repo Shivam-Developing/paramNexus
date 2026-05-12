@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
-      <body className="font-body bg-offWhite text-darkFooter antialiased">
+      <body className="font-body bg-obsidian text-white antialiased">
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />
